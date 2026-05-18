@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Life Design Framework</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --gold: #B8860B;
+    --gold-light: #D4A942;
+    --gold-pale: #F5E6C0;
+    --ink: #1A1410;
+    --ink-soft: #3D2E1E;
+    --parchment: #FAF6EE;
+    --parchment-dark: #F0E8D4;
+    --white: #FFFFFF;
+    --phase1: #8B6914;
+    --phase2: #2D5A3D;
+    --phase3: #1E3A5F;
+    --phase4: #5C2D6E;
+    --phase5: #8B1A2E;
+    --phase6: #2D4A3E;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--parchment);
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    color: var(--white);
+    padding: 80px 40px 70px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(184,134,11,0.25) 0%, transparent 70%);
+  }
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 7vw, 80px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .hero-sub {
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    max-width: 560px;
+    margin: 0 auto 44px;
+    position: relative;
+    line-height: 1.8;
+  }
+  .hero-pillars {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .pillar-tag {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(184,134,11,0.4);
+    color: var(--gold-pale);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border-radius: 2px;
+  }
+
+  /* ── NAV ── */
+  .phase-nav {
+    background: var(--ink-soft);
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(184,134,11,0.3);
+  }
+  .phase-nav::-webkit-scrollbar { display: none; }
+  .nav-item {
+    flex-shrink: 0;
+    padding: 14px 22px;
+    color: rgba(255,255,255,0.5);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.25s;
+    white-space: nowrap;
+    background: none;
+    border-top: none; border-left: none; border-right: none;
+  }
+  .nav-item:hover { color: var(--gold-light); }
+  .nav-item.active { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+
+  /* ── INTRO BAND ── */
+  .intro-band {
+    background: var(--parchment-dark);
+    border-bottom: 1px solid rgba(184,134,11,0.2);
+    padding: 36px 40px;
+    text-align: center;
+  }
+  .intro-band p {
+    max-width: 700px;
+    margin: 0 auto;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  /* ── PHASE SECTION ── */
+  .phase-section {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+  .phase-section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  .phase-header {
+    padding: 56px 40px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  .phase-header::after {
+    content: attr(data-number);
+    position: absolute;
+    right: -10px; top: -20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 200px;
+    font-weight: 700;
+    opacity: 0.04;
+    color: var(--ink);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .phase-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-bottom: 18px;
+    color: white;
+  }
+  .phase-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 5vw, 54px);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .phase-duration {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .phase-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+    max-width: 620px;
+  }
+  .phase-intro {
+    font-size: 15px;
+    color: var(--ink-soft);
+    max-width: 680px;
+    line-height: 1.8;
+  }
+
+  /* ── MODULES GRID ── */
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1px;
+    background: rgba(0,0,0,0.08);
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+  .module-card {
+    background: var(--white);
+    padding: 32px 30px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .module-card:hover { background: var(--parchment); }
+  .module-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 14px;
+  }
+  .type-exercise { background: #FEF3E2; color: #92400E; }
+  .type-tool { background: #EEF2FF; color: #3730A3; }
+  .type-reflection { background: #F0FDF4; color: #166534; }
+  .type-practice { background: #FDF2F8; color: #86198F; }
+  .module-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .module-card p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .expand-btn {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .expand-btn::after {
+    content: '↓';
+    transition: transform 0.25s;
+    display: inline-block;
+  }
+  .module-card.open .expand-btn::after { transform: rotate(180deg); }
+
+  /* ── EXPANDED CONTENT ── */
+  .module-detail {
+    display: none;
+    margin-top: 20px;
+    border-top: 1px solid var(--parchment-dark);
+    padding-top: 20px;
+  }
+  .module-card.open .module-detail { display: block; }
+  .detail-section { margin-bottom: 20px; }
+  .detail-section h4 {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .detail-section p, .detail-section li {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.75;
+  }
+  .step-list {
+    list-style: none;
+    padding: 0;
+  }
+  .step-list li {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--gold-pale);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .prompt-box {
+    background: var(--parchment);
+    border-left: 3px solid var(--gold);
+    padding: 14px 18px;
+    margin: 8px 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .tool-highlight {
+    background: #F0F9FF;
+    border: 1px solid #BAE6FD;
+    border-radius: 4px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #0C4A6E;
+    line-height: 1.7;
+  }
+
+  /* ── PROGRESS TRACKER ── */
+  .progress-bar-wrap {
+    background: var(--parchment-dark);
+    padding: 20px 40px;
+    border-top: 1px solid rgba(0,0,0,0.07);
+  }
+  .progress-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .progress-phases {
+    display: flex;
+    gap: 6px;
+  }
+  .prog-seg {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(0,0,0,0.1);
+    transition: background 0.4s;
+    cursor: pointer;
+  }
+  .prog-seg.done { background: var(--gold); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 32px 20px;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+  footer span { color: var(--gold-light); }
+
+  @media (max-width: 600px) {
+    .hero { padding: 60px 24px 50px; }
+    .phase-header { padding: 40px 24px 32px; }
+    .modules-grid { grid-template-columns: 1fr; }
+    .module-card { padding: 24px 20px; }
+    .progress-bar-wrap { padding: 16px 24px; }
+    .intro-band { padding: 28px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">A Complete Life Design System</div>
+  <h1>The <em>Intentional</em> Life<br/>Framework</h1>
+  <p class="hero-sub">Build clarity, direction, and discipline — aligned with your vision, purpose, faith, and family — without burning out.</p>
+  <div class="hero-pillars">
+    <span class="pillar-tag">Vision</span>
+    <span class="pillar-tag">Purpose</span>
+    <span class="pillar-tag">Goals</span>
+    <span class="pillar-tag">Time</span>
+    <span class="pillar-tag">Habits</span>
+    <span class="pillar-tag">Faith</span>
+    <span class="pillar-tag">Family</span>
+  </div>
+</section>
+
+<!-- STICKY NAV -->
+<nav class="phase-nav" id="phaseNav">
+  <button class="nav-item active" onclick="showPhase(0)">Phase 1: The Pause</button>
+  <button class="nav-item" onclick="showPhase(1)">Phase 2: The Core</button>
+  <button class="nav-item" onclick="showPhase(2)">Phase 3: The Vision</button>
+  <button class="nav-item" onclick="showPhase(3)">Phase 4: The Blueprint</button>
+  <button class="nav-item" onclick="showPhase(4)">Phase 5: The Engine</button>
+  <button class="nav-item" onclick="showPhase(5)">Phase 6: The Rhythm</button>
+</nav>
+
+<!-- INTRO QUOTE -->
+<div class="intro-band">
+  <p>"Most people don't lack ambition. They lack a system. This framework gives you both — rooted in what matters most to you."</p>
+</div>
+
+<!-- ═══════════════════════════════════════ PHASE 1 ═══════════════════════════════════════ -->
+<section class="phase-section active" id="phase-0">
+  <div class="phase-header" data-number="1" style="background: linear-gradient(135deg, #FAF6EE 0%, #F5E6C0 100%);">
+    <div class="phase-badge" style="background:#8B6914;">Phase 1</div>
+    <div class="phase-duration">Week 1 – 2</div>
+    <h2>The Pause<br/>Know Yourself Before You Build Anything</h2>
+    <div class="phase-tagline">"You can't design a life you haven't examined."</div>
+    <p class="phase-intro">Most people skip this phase entirely. They jump to goals and plans without understanding who they are, what they actually value, or where their life currently stands. This phase slows you down — intentionally — so everything you build later is anchored in truth, not wishful thinking.</p>
+  </div>
+  <div class="modules-grid">
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-exercise">✏️ Exercise</span>
+      <h3>The Life Inventory — Wheel of Life</h3>
+      <p>A complete audit across 8 domains: Faith, Family, Health, Vocation, Finances, Relationships, Growth, and Rest.</p>
+      <button class="expand-btn">Open Exercise</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>Why This Matters</h4>
+          <p>You cannot improve what you haven't honestly assessed. This exercise creates a baseline — your current reality map — so your goals are corrective, not random.</p>
+        </div>
+        <div class="detail-section">
+          <h4>Steps</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span>Draw a circle divided into 8 equal sections. Label each: Faith, Family, Health, Vocation, Finances, Relationships, Growth, Rest.</span></li>
+            <li><span class="step-num">2</span><span>Score each area honestly 1–10 based on how satisfied you feel RIGHT NOW (not how important it is).</span></li>
+            <li><span class="step-num">3</span><span>Shade each segment inward from the center to your score.</span></li>
+            <li><span class="step-num">4</span><span>Notice which areas feel deflated. These are your "design gaps."</span></li>
+            <li><span class="step-num">5</span><span>Ask: "Which 2 areas, if improved, would most elevate everything else?"</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Reflection Prompts</h4>
+          <div class="prompt-box">"Where am I pretending things are fine when they're not?"</div>
+          <div class="prompt-box">"Which area do I consistently neglect — and what story do I tell myself about why?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-reflection">🪞 Reflection</span>
+      <h3>The Deathbed Test — Reverse Regret</h3>
+      <p>Project yourself to the end of your life and look backward. What do you wish you had done more of? Less of? Started sooner?</p>
+      <button class="expand-btn">Open Exercise</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>Why This Matters</h4>
+          <p>Urgency only becomes clear when you see the finite nature of your time. This isn't morbid — it's clarifying. The biggest regrets in life are almost never about risks taken; they're about things left undone.</p>
+        </div>
+        <div class="detail-section">
+          <h4>The Exercise</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span>Find 20 minutes of complete silence. No phone.</span></li>
+            <li><span class="step-num">2</span><span>Imagine you are 85 years old, looking back at your life.</span></li>
+            <li><span class="step-num">3</span><span>Write freely for 10 minutes answering: "What did I spend my life on? Was it worth it?"</span></li>
+            <li><span class="step-num">4</span><span>Then write: "What do I wish I had prioritized, pursued, or protected?"</span></li>
+            <li><span class="step-num">5</span><span>Circle the 3 most painful answers. These become design constraints — things you will not sacrifice.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Reflection Prompts</h4>
+          <div class="prompt-box">"Am I living a life I actually chose — or one I drifted into?"</div>
+          <div class="prompt-box">"What would the 85-year-old version of me beg the present-day me to start doing today?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-tool">🔧 Tool</span>
+      <h3>The Energy Audit — Energy Map</h3>
+      <p>Track what activities drain or replenish you over one week. Design your life around your energy, not just your time.</p>
+      <button class="expand-btn">Open Tool</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>Why This Matters</h4>
+          <p>Busyness is not the same as productivity. Most people are exhausted not because they do too much — but because they spend too much time doing things that deplete them.</p>
+        </div>
+        <div class="detail-section">
+          <h4>How to Use It</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span>For 7 days, after each major activity, rate your energy: ↑ Energized / → Neutral / ↓ Drained.</span></li>
+            <li><span class="step-num">2</span><span>At week's end, list your top 5 "energy drains" and top 5 "energy sources."</span></li>
+            <li><span class="step-num">3</span><span>Ask: "What on my drain list is non-negotiable? What can I eliminate, delegate, or reduce?"</span></li>
+            <li><span class="step-num">4</span><span>Ask: "Am I scheduling enough of what energizes me?"</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Key Insight</h4>
+          <div class="tool-highlight">🔑 Your energy profile is unique. What energizes your colleague or spouse may drain you. Stop designing your life around what should energize you — and start with what actually does.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-exercise">✏️ Exercise</span>
+      <h3>The Identity Statement — Who Am I?</h3>
+      <p>Write a clear, honest description of who you are right now — not who you hope to be, but who you actually are today.</p>
+      <button class="expand-btn">Open Exercise</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>The Exercise</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span>Complete these sentences without overthinking: "I am someone who…" (list 10 honest statements)</span></li>
+            <li><span class="step-num">2</span><span>Then complete: "I want to become someone who…" (list 10)</span></li>
+            <li><span class="step-num">3</span><span>Circle the gaps between who you are and who you want to become. These gaps become your growth targets.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Reflection Prompts</h4>
+          <div class="prompt-box">"If I'm being honest, what kind of person do my daily choices reflect — regardless of what I say I believe?"</div>
+          <div class="prompt-box">"What beliefs about myself are holding my life in place — and are they actually true?"</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ PHASE 2 ═══════════════════════════════════════ -->
+<section class="phase-section" id="phase-1">
+  <div class="phase-header" data-number="2" style="background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);">
+    <div class="phase-badge" style="background:#2D5A3D;">Phase 2</div>
+    <div class="phase-duration">Week 3 – 4</div>
+    <h2>The Core<br/>Define What You Actually Stand For</h2>
+    <div class="phase-tagline">"A life without a defined center drifts to whoever is loudest."</div>
+    <p class="phase-intro">Your values are not what you say you believe — they are what your calendar and your bank account reveal you believe. This phase forces honest reckoning with your true priorities, so that your future design is built on solid ground rather than borrowed ideals.</p>
+  </div>
+  <div class="modules-grid">
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-exercise">✏️ Exercise</span>
+      <h3>Values Excavation — The Top 5</h3>
+      <p>Identify the 5 core values that must be honored for you to feel that your life is meaningful, not just successful.</p>
+      <button class="expand-btn">Open Exercise</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>Steps</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span>Write down 20–30 values that resonate (e.g. faith, integrity, freedom, family, growth, service, creativity, security…)</span></li>
+            <li><span class="step-num">2</span><span>Narrow to 10 by asking: "Which ones would I refuse to compromise, even for great reward?"</span></li>
+            <li><span class="step-num">3</span><span>Narrow to 5 by comparing pairs: "If I had to choose between X and Y, which would I keep?"</span></li>
+            <li><span class="step-num">4</span><span>For each of your 5, write: what it means to you personally, and how you are currently honoring (or violating) it.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Reflection Prompts</h4>
+          <div class="prompt-box">"Where in my life am I saying one thing and doing another? What does that tell me about my real values?"</div>
+          <div class="prompt-box">"Which of my 5 values do I most frequently sacrifice under pressure?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-reflection">🪞 Reflection</span>
+      <h3>Faith Integration — Your Anchor</h3>
+      <p>Explore how your faith forms the foundation of your life design — not as an add-on, but as the root system everything else grows from.</p>
+      <button class="expand-btn">Open Exercise</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>The Exercise</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span>Write your answer to: "What does my faith say about why I exist and what I'm here to do?"</span></li>
+            <li><span class="step-num">2</span><span>Ask: "Where am I designing my life as if my faith doesn't matter — and where is it deeply embedded?"</span></li>
+            <li><span class="step-num">3</span><span>List 3 ways you want your faith to be more visibly expressed in your daily decisions, relationships, and work.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Reflection Prompts</h4>
+          <div class="prompt-box">"Is my faith a compartment of my life, or is it the lens through which I see all of life?"</div>
+          <div class="prompt-box">"What would it look like to fully surrender my plans to something larger than my own ambitions?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-tool">🔧 Tool</span>
+      <h3>Family Roles Map — What They Need</h3>
+      <p>Clarify the specific roles you play in your family, what each person needs from you, and where you are most absent.</p>
+      <button class="expand-btn">Open Tool</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>How to Use It</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span>List every person in your immediate family.</span></li>
+            <li><span class="step-num">2</span><span>For each, write: the role you play for them (e.g. provider, protector, listener, playmate, spiritual guide).</span></li>
+            <li><span class="step-num">3</span><span>Rate honestly (1–10): how well are you currently fulfilling each role?</span></li>
+            <li><span class="step-num">4</span><span>Ask each family member (if appropriate): "What's one thing you wish I did more of with you?"</span></li>
+            <li><span class="step-num">5</span><span>Circle your biggest gap. Build one specific habit in Phase 5 to close it.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Key Insight</h4>
+          <div class="tool-highlight">🔑 Family sacrifice is not the cost of ambition — it is an ambition failure. Your family is not competing with your purpose; they are part of it.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-practice">🌱 Practice</span>
+      <h3>The Non-Negotiables List</h3>
+      <p>Create a protected list of the things that are NOT for sale — commitments you will not trade for opportunity, productivity, or pressure.</p>
+      <button class="expand-btn">Open Exercise</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>Steps</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span>List everything in your life that, if you lost it, would hollow out everything else (e.g. morning prayer, Sunday family dinner, one-on-one time with each child).</span></li>
+            <li><span class="step-num">2</span><span>For each item, write why it is non-negotiable in one sentence.</span></li>
+            <li><span class="step-num">3</span><span>Create a rule: any schedule, opportunity, or request that violates a non-negotiable requires a very strong override justification.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Reflection Prompts</h4>
+          <div class="prompt-box">"What have I said is important but consistently cancelled when something 'urgent' comes up?"</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ PHASE 3 ═══════════════════════════════════════ -->
+<section class="phase-section" id="phase-2">
+  <div class="phase-header" data-number="3" style="background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);">
+    <div class="phase-badge" style="background:#1E3A5F;">Phase 3</div>
+    <div class="phase-duration">Week 5 – 6</div>
+    <h2>The Vision<br/>Build the Picture of Your Preferred Future</h2>
+    <div class="phase-tagline">"Where there is no vision, the people wander. Where there is clarity, they move."</div>
+    <p class="phase-intro">Vision is not fantasy. It's a detailed, emotionally compelling picture of what your life looks like when it's working — aligned with your values, your faith, and your family. This phase builds that picture so concretely that you can feel it before you achieve it.</p>
+  </div>
+  <div class="modules-grid">
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-exercise">✏️ Exercise</span>
+      <h3>The 10-Year Letter — Future Self</h3>
+      <p>Write a detailed letter from your future self, 10 years from now, describing the life you have built.</p>
+      <button class="expand-btn">Open Exercise</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>Steps</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span>Set a timer for 30 minutes. Write as if you are your future self, 10 years from today.</span></li>
+            <li><span class="step-num">2</span><span>Describe your typical Tuesday: what time you wake up, what your work is, how your relationships feel, where you live, what your spiritual life looks like, how your family is thriving.</span></li>
+            <li><span class="step-num">3</span><span>Write what you are proud of. What struggles you overcame. What you gave up. What you protected.</span></li>
+            <li><span class="step-num">4</span><span>End with one line of advice to your present self — the most important thing to do or stop doing right now.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Reflection Prompts</h4>
+          <div class="prompt-box">"What future am I building by living today as I am living today?"</div>
+          <div class="prompt-box">"Is the future I described actually possible — or do I need to believe bigger?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-tool">🔧 Tool</span>
+      <h3>The Life Vision Board — In Writing</h3>
+      <p>A structured written vision across every major domain of your life — not vague wishes, but specific, vivid pictures.</p>
+      <button class="expand-btn">Open Tool</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>How to Use It</h4>
+          <p>Write 2–3 vivid sentences for each domain describing what "thriving" looks like in 5–10 years:</p>
+          <ol class="step-list">
+            <li><span class="step-num">F</span><span><strong>Faith:</strong> My spiritual life looks like… I am known for my faith in…</span></li>
+            <li><span class="step-num">F</span><span><strong>Family:</strong> My marriage/family looks like… My children experience me as…</span></li>
+            <li><span class="step-num">H</span><span><strong>Health:</strong> My body feels like… I am able to…</span></li>
+            <li><span class="step-num">V</span><span><strong>Vocation:</strong> My work is… I am contributing to the world by…</span></li>
+            <li><span class="step-num">$</span><span><strong>Finances:</strong> My financial life gives me the freedom to… I have built…</span></li>
+            <li><span class="step-num">G</span><span><strong>Growth:</strong> I am known for my expertise in… I am constantly learning…</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Key Insight</h4>
+          <div class="tool-highlight">🔑 A vision that doesn't include your family and faith is not a full vision — it's a career plan. Build a vision big enough to contain everything that matters.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-reflection">🪞 Reflection</span>
+      <h3>The Purpose Statement — Your Why</h3>
+      <p>Distill your entire reason for being into one clear, memorable sentence that guides every major decision you make.</p>
+      <button class="expand-btn">Open Exercise</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>The Formula</h4>
+          <p style="margin-bottom:12px;">Use this structure to draft your purpose statement:</p>
+          <div class="tool-highlight">
+            <strong>My purpose is to [verb] [who] so that [impact/outcome] — through [your unique gifts/approach].</strong><br/><br/>
+            Example: "My purpose is to build and lead with integrity so that my family, my team, and my community experience what it means to live with faith and courage — through honest work, deep relationships, and continuous growth."
+          </div>
+        </div>
+        <div class="detail-section">
+          <h4>Refinement Questions</h4>
+          <div class="prompt-box">"Does this statement reflect my faith? Would I stand behind it even if it cost me something?"</div>
+          <div class="prompt-box">"Is this purpose about me — or is it genuinely about something larger than me?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-practice">🌱 Practice</span>
+      <h3>The Eulogy Exercise — Legacy</h3>
+      <p>Write the eulogy you want someone to give at your funeral. Then ask: am I living in a way that makes that eulogy true?</p>
+      <button class="expand-btn">Open Exercise</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>Steps</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span>Write 3 eulogies — one from your spouse/closest family member, one from a colleague or person you served, one from your children or a younger person you mentored.</span></li>
+            <li><span class="step-num">2</span><span>Read them aloud. How does it feel?</span></li>
+            <li><span class="step-num">3</span><span>Identify the gap between the person described and who you are today. That gap is your design brief.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Reflection Prompts</h4>
+          <div class="prompt-box">"What do I want to be remembered for — and does the way I spend my time reflect that?"</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ PHASE 4 ═══════════════════════════════════════ -->
+<section class="phase-section" id="phase-3">
+  <div class="phase-header" data-number="4" style="background: linear-gradient(135deg, #FAF5FF 0%, #EDE9FE 100%);">
+    <div class="phase-badge" style="background:#5C2D6E;">Phase 4</div>
+    <div class="phase-duration">Week 7 – 8</div>
+    <h2>The Blueprint<br/>Goals That Are Aligned, Not Just Ambitious</h2>
+    <div class="phase-tagline">"A goal without a plan is a wish. A plan without a vision is noise."</div>
+    <p class="phase-intro">Most goal-setting fails because it's disconnected from deeper purpose. In this phase, you translate your vision into a structured 1-year plan — with seasonal goals, 90-day sprints, and clear priorities — so your effort compounds instead of scatters.</p>
+  </div>
+  <div class="modules-grid">
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-tool">🔧 Tool</span>
+      <h3>The 3-Level Goal Architecture</h3>
+      <p>A cascading structure that links your 10-year vision → 1-year goals → 90-day sprints → weekly actions.</p>
+      <button class="expand-btn">Open Tool</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>The Structure</h4>
+          <ol class="step-list">
+            <li><span class="step-num">L1</span><span><strong>Annual Themes (3 max):</strong> One word or phrase per domain that captures what this year is about. E.g. "Foundation Year," "Health Rebuilt," "Business Launched."</span></li>
+            <li><span class="step-num">L2</span><span><strong>Quarterly Goals (3–5 per quarter):</strong> Specific, measurable outcomes you will achieve in 90 days. Each goal must tie back to your annual theme.</span></li>
+            <li><span class="step-num">L3</span><span><strong>Weekly Actions (3 per week):</strong> The 3 highest-value actions this week that move your quarterly goals forward.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Key Rule</h4>
+          <div class="tool-highlight">🔑 Never have more than 3 active goals at one time. Focus is the multiplier. The person who chases 10 goals achieves none of them. Choose 3 that would change everything.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-exercise">✏️ Exercise</span>
+      <h3>The Filter Test — Does This Goal Belong?</h3>
+      <p>Before committing to any goal, run it through 4 questions that reveal if it's truly yours or borrowed from someone else's expectations.</p>
+      <button class="expand-btn">Open Exercise</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>The 4 Questions</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span><strong>Is it mine?</strong> Am I pursuing this because I genuinely want it — or because of what others will think?</span></li>
+            <li><span class="step-num">2</span><span><strong>Is it aligned?</strong> Does achieving this move me closer to my vision, values, and purpose — or is it a detour?</span></li>
+            <li><span class="step-num">3</span><span><strong>Is the cost worth it?</strong> What will I have to sacrifice to achieve this? Am I willing to pay that price?</span></li>
+            <li><span class="step-num">4</span><span><strong>Does it honor my non-negotiables?</strong> Can I pursue this without sacrificing my faith, my family, or my health?</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Reflection Prompts</h4>
+          <div class="prompt-box">"Am I pursuing this goal to build something — or to prove something?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-tool">🔧 Tool</span>
+      <h3>The Annual Blueprint — 1-Page Plan</h3>
+      <p>Condense your entire year's design onto one page. This becomes your reference document — your "north star" for every major decision in the year.</p>
+      <button class="expand-btn">Open Tool</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>The Blueprint Sections</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span><strong>This Year's Theme:</strong> One word that captures what this year is about.</span></li>
+            <li><span class="step-num">2</span><span><strong>My Purpose Statement:</strong> (from Phase 3)</span></li>
+            <li><span class="step-num">3</span><span><strong>Top 3 Goals:</strong> The 3 outcomes that would make this year transformational.</span></li>
+            <li><span class="step-num">4</span><span><strong>My Non-Negotiables:</strong> What I will protect no matter what.</span></li>
+            <li><span class="step-num">5</span><span><strong>Stop Doing List:</strong> 3 things I am officially done with this year.</span></li>
+            <li><span class="step-num">6</span><span><strong>My Word for the Year:</strong> One word I want to embody and grow into.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Key Insight</h4>
+          <div class="tool-highlight">🔑 Print this. Put it where you will see it daily. Review it every Sunday. A plan you never see is a plan you never follow.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-reflection">🪞 Reflection</span>
+      <h3>The Subtraction Exercise — Stop Doing List</h3>
+      <p>Identify the commitments, habits, relationships, and beliefs that are silently consuming your capacity for the life you want.</p>
+      <button class="expand-btn">Open Exercise</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>Steps</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span>List everything you currently spend time on (commitments, apps, meetings, habits, relationships).</span></li>
+            <li><span class="step-num">2</span><span>Mark each: Essential / Valuable / Draining / Irrelevant.</span></li>
+            <li><span class="step-num">3</span><span>Everything "Draining" or "Irrelevant" is a candidate for elimination.</span></li>
+            <li><span class="step-num">4</span><span>Choose 3 things to stop doing immediately. Write them as formal commitments.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Reflection Prompts</h4>
+          <div class="prompt-box">"What am I doing out of guilt, obligation, or habit — that no longer serves my design?"</div>
+          <div class="prompt-box">"What would I have more of — time, energy, peace — if I stopped doing ______?"</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ PHASE 5 ═══════════════════════════════════════ -->
+<section class="phase-section" id="phase-4">
+  <div class="phase-header" data-number="5" style="background: linear-gradient(135deg, #FFF1F2 0%, #FFE4E6 100%);">
+    <div class="phase-badge" style="background:#8B1A2E;">Phase 5</div>
+    <div class="phase-duration">Week 9 – 10</div>
+    <h2>The Engine<br/>Time, Habits, and Daily Discipline</h2>
+    <div class="phase-tagline">"You don't rise to your goals. You fall to your systems."</div>
+    <p class="phase-intro">Vision without a daily engine stays a dream. This phase builds the operational layer of your life: how you spend your days, what habits anchor your growth, and how you protect your time without burning out or abandoning what matters.</p>
+  </div>
+  <div class="modules-grid">
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-tool">🔧 Tool</span>
+      <h3>The Ideal Week Design</h3>
+      <p>Design your ideal week from scratch — before life fills it for you. Block time for your most important roles, not just your most urgent tasks.</p>
+      <button class="expand-btn">Open Tool</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>Steps</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span>Start with your non-negotiables: faith practice, family time, health. Block these first — they are immovable.</span></li>
+            <li><span class="step-num">2</span><span>Identify your 2–3 hours of peak energy each day. Protect this time exclusively for deep work on your top priority.</span></li>
+            <li><span class="step-num">3</span><span>Create 3 "zones": Deep Work (focus, creation), Shallow Work (admin, meetings), and Recovery (rest, family, faith).</span></li>
+            <li><span class="step-num">4</span><span>Leave 20% of your week unscheduled — for overflow, emergence, and rest.</span></li>
+            <li><span class="step-num">5</span><span>Map your actual week against your ideal. Notice the gaps and redesign.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Key Insight</h4>
+          <div class="tool-highlight">🔑 "Someday" is not a day of the week. If faith, family, and health are not scheduled, they will be perpetually postponed by whatever feels urgent.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-practice">🌱 Practice</span>
+      <h3>The Daily Anchor Routine — Morning & Evening</h3>
+      <p>Design a simple, sustainable morning and evening routine that sets the tone for your day and closes it with intention.</p>
+      <button class="expand-btn">Open Tool</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>Morning Anchor (30–60 min)</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span><strong>Silence/Prayer (10 min):</strong> Before your phone. Center yourself in your faith and purpose.</span></li>
+            <li><span class="step-num">2</span><span><strong>Review your Blueprint (3 min):</strong> Read your purpose, goals, and non-negotiables. Set your intention.</span></li>
+            <li><span class="step-num">3</span><span><strong>Move your body (15 min):</strong> Whatever form — walk, stretch, gym. Non-negotiable.</span></li>
+            <li><span class="step-num">4</span><span><strong>Identify your 3 priorities for the day (5 min):</strong> The 3 actions that, if done, make today a success.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Evening Anchor (15 min)</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span><strong>Review your day (5 min):</strong> What did you accomplish? What was left undone?</span></li>
+            <li><span class="step-num">2</span><span><strong>Gratitude (3 min):</strong> Write 3 specific things you're grateful for from today.</span></li>
+            <li><span class="step-num">3</span><span><strong>Set tomorrow's 3 priorities (3 min):</strong> Close the loop so your mind can rest.</span></li>
+            <li><span class="step-num">4</span><span><strong>Disconnect (by a set time):</strong> Choose a hard cutoff for screens. Protect sleep as a non-negotiable.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Key Insight</h4>
+          <div class="tool-highlight">🔑 Don't build a 2-hour morning routine. Build a 30-minute one you actually keep. Consistency over complexity, every time.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-exercise">✏️ Exercise</span>
+      <h3>The Habit Stack — Build on What You Already Do</h3>
+      <p>Attach new growth habits to existing behaviors so they require no extra willpower to execute.</p>
+      <button class="expand-btn">Open Exercise</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>The Formula</h4>
+          <div class="tool-highlight">After I [EXISTING HABIT], I will [NEW HABIT] for [DURATION].</div>
+        </div>
+        <div class="detail-section">
+          <h4>Steps</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span>List 5 things you do automatically every day without thinking (make coffee, brush teeth, sit at your desk, eat lunch).</span></li>
+            <li><span class="step-num">2</span><span>Identify 3 habits you want to build this quarter (e.g. read, pray, journal, exercise, call family).</span></li>
+            <li><span class="step-num">3</span><span>Pair each new habit to an existing anchor. Start with just 2–5 minutes per habit.</span></li>
+            <li><span class="step-num">4</span><span>Run the stack for 30 days before adding anything new.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Reflection Prompts</h4>
+          <div class="prompt-box">"What single habit, if practiced daily, would most compound into the person I want to become?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-tool">🔧 Tool</span>
+      <h3>The Anti-Burnout Protocol</h3>
+      <p>Build recovery and renewal directly into your schedule so that high performance is sustainable — not a sprint toward collapse.</p>
+      <button class="expand-btn">Open Tool</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>The 4 Recovery Layers</h4>
+          <ol class="step-list">
+            <li><span class="step-num">D</span><span><strong>Daily:</strong> Build a hard stop time. After that time, no work-related thinking. Protect at least 1 hour of unstructured rest or family presence.</span></li>
+            <li><span class="step-num">W</span><span><strong>Weekly:</strong> One full day without work. Not a light day — a full Sabbath-like rest. Protect this as a spiritual and biological necessity.</span></li>
+            <li><span class="step-num">Q</span><span><strong>Quarterly:</strong> One day each quarter for a personal retreat — to review, reflect, and recalibrate your plan. (See Phase 6.)</span></li>
+            <li><span class="step-num">A</span><span><strong>Annually:</strong> At minimum one week of genuine vacation — no devices, no "just checking in." Real renewal requires real withdrawal.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Key Insight</h4>
+          <div class="tool-highlight">🔑 Rest is not the absence of work. It is the preparation for better work. The person who rests well, works better. The person who never rests, eventually cannot work at all.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ PHASE 6 ═══════════════════════════════════════ -->
+<section class="phase-section" id="phase-5">
+  <div class="phase-header" data-number="6" style="background: linear-gradient(135deg, #F0FDF4 0%, #D1FAE5 100%);">
+    <div class="phase-badge" style="background:#2D4A3E;">Phase 6</div>
+    <div class="phase-duration">Ongoing — For Life</div>
+    <h2>The Rhythm<br/>Review, Recalibrate, Sustain</h2>
+    <div class="phase-tagline">"The goal is not to finish the framework. It is to never need to start over."</div>
+    <p class="phase-intro">Life does not stay still. Seasons change, priorities shift, children grow, opportunities emerge. This phase installs a rhythmic review system — weekly, monthly, quarterly — so your life design stays current, alive, and responsive without requiring a complete rebuild every year.</p>
+  </div>
+  <div class="modules-grid">
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-practice">🌱 Practice</span>
+      <h3>The Weekly Review — 30 Minutes That Changes Everything</h3>
+      <p>A structured weekly review that keeps you on track, prevents drift, and ensures your days are aligned with your design.</p>
+      <button class="expand-btn">Open Tool</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>The 5-Step Weekly Review (Sunday evening or Monday morning)</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span><strong>Clear the deck (5 min):</strong> Process all notes, tasks, and commitments from the past week. Close open loops.</span></li>
+            <li><span class="step-num">2</span><span><strong>Review your Blueprint (3 min):</strong> Re-read your purpose, goals, and non-negotiables.</span></li>
+            <li><span class="step-num">3</span><span><strong>Score your week (5 min):</strong> Rate each life domain 1–5 for this week. Notice any that are consistently low.</span></li>
+            <li><span class="step-num">4</span><span><strong>Identify next week's 3 priorities (5 min):</strong> The 3 actions that will most advance your top goals.</span></li>
+            <li><span class="step-num">5</span><span><strong>Block time for priorities (5 min):</strong> Open your calendar and schedule the 3 priorities before anything else fills the week.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>The One Question That Anchors It All</h4>
+          <div class="prompt-box">"If I kept living exactly as I lived this past week for the next 5 years — would I end up where I want to go?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-exercise">✏️ Exercise</span>
+      <h3>The Quarterly Retreat — Your 4-Hour Recalibration</h3>
+      <p>Once every 90 days, step completely away from your normal environment to review, reflect, and redesign for the next season.</p>
+      <button class="expand-btn">Open Tool</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>The Retreat Agenda (4 hours)</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span><strong>Arrival & Silence (20 min):</strong> No phone. Begin with prayer, gratitude, or stillness. Let your mind decompress before thinking.</span></li>
+            <li><span class="step-num">2</span><span><strong>Last Quarter Review (45 min):</strong> What did I accomplish? What fell short? What surprised me? What do I want to stop, start, continue?</span></li>
+            <li><span class="step-num">3</span><span><strong>Life Wheel Re-Score (20 min):</strong> Run your Phase 1 wheel again. What has improved? What has slipped?</span></li>
+            <li><span class="step-num">4</span><span><strong>Blueprint Update (45 min):</strong> Revise your goals, priorities, and non-negotiables based on the new season.</span></li>
+            <li><span class="step-num">5</span><span><strong>Next Quarter Plan (45 min):</strong> Set 3 goals for the next 90 days. Design your ideal week for the new season.</span></li>
+            <li><span class="step-num">6</span><span><strong>Gratitude & Closure (15 min):</strong> Write what you're most grateful for this quarter. End in prayer or reflection.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Key Insight</h4>
+          <div class="tool-highlight">🔑 You don't need a new vision every year. You need the courage to keep executing the one you already have — and the wisdom to adjust it as you grow.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-reflection">🪞 Reflection</span>
+      <h3>The Annual Life Review — Your Year in Full</h3>
+      <p>A comprehensive end-of-year reflection that closes the chapter fully so you can begin the next one with clarity and intentionality.</p>
+      <button class="expand-btn">Open Exercise</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>Key Questions</h4>
+          <ol class="step-list">
+            <li><span class="step-num">→</span><span>What were the 3 best things that happened this year — and why?</span></li>
+            <li><span class="step-num">→</span><span>What did I fail at — and what did that teach me?</span></li>
+            <li><span class="step-num">→</span><span>What did I learn about myself that I didn't know a year ago?</span></li>
+            <li><span class="step-num">→</span><span>Who did I become this year? Is that the person I set out to become?</span></li>
+            <li><span class="step-num">→</span><span>How did I show up for my family? For my faith? For my health?</span></li>
+            <li><span class="step-num">→</span><span>What do I want next year to be defined by?</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Reflection Prompts</h4>
+          <div class="prompt-box">"Did I live this year on purpose — or did I just let it happen to me?"</div>
+          <div class="prompt-box">"What story will I tell about this year, and is it a story I'm proud of?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-card" onclick="toggleModule(this)">
+      <span class="module-type type-practice">🌱 Practice</span>
+      <h3>The Accountability Structure — Don't Go Alone</h3>
+      <p>Build the human infrastructure that will hold you to your design when motivation fades and life pushes back.</p>
+      <button class="expand-btn">Open Tool</button>
+      <div class="module-detail">
+        <div class="detail-section">
+          <h4>The 3 Accountability Relationships</h4>
+          <ol class="step-list">
+            <li><span class="step-num">1</span><span><strong>The Mentor:</strong> Someone 10–20 years ahead of you who has built the kind of life you admire. Meet quarterly. Ask for their honest assessment of your trajectory.</span></li>
+            <li><span class="step-num">2</span><span><strong>The Peer Partner:</strong> Someone at your level doing the same work of intentional life design. Share your Blueprint. Check in weekly. Challenge each other.</span></li>
+            <li><span class="step-num">3</span><span><strong>Your Spouse/Family:</strong> If you're married, your spouse should know your Blueprint. They are not just your support system — they are a co-designer of your shared life. Review your family vision together at minimum once a year.</span></li>
+          </ol>
+        </div>
+        <div class="detail-section">
+          <h4>Key Insight</h4>
+          <div class="tool-highlight">🔑 Accountability is not surveillance. It is the gift of someone who cares enough about your growth to tell you the truth when you're drifting.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar-wrap">
+  <div class="progress-label">Your Journey Through the Framework</div>
+  <div class="progress-phases" id="progressPhases">
+    <div class="prog-seg done" onclick="showPhase(0)" title="Phase 1: The Pause"></div>
+    <div class="prog-seg" onclick="showPhase(1)" title="Phase 2: The Core"></div>
+    <div class="prog-seg" onclick="showPhase(2)" title="Phase 3: The Vision"></div>
+    <div class="prog-seg" onclick="showPhase(3)" title="Phase 4: The Blueprint"></div>
+    <div class="prog-seg" onclick="showPhase(4)" title="Phase 5: The Engine"></div>
+    <div class="prog-seg" onclick="showPhase(5)" title="Phase 6: The Rhythm"></div>
+  </div>
+</div>
+
+<footer>
+  <p>The Intentional Life Framework &nbsp;·&nbsp; <span>Clarity · Direction · Discipline</span> &nbsp;·&nbsp; Designed for steady growth, not overload.</p>
+</footer>
+
+<script>
+let currentPhase = 0;
+
+function showPhase(index) {
+  document.querySelectorAll('.phase-section').forEach((s, i) => {
+    s.classList.toggle('active', i === index);
+  });
+  document.querySelectorAll('.nav-item').forEach((n, i) => {
+    n.classList.toggle('active', i === index);
+  });
+  document.querySelectorAll('.prog-seg').forEach((p, i) => {
+    p.classList.toggle('done', i <= index);
+  });
+  currentPhase = index;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleModule(card) {
+  const isOpen = card.classList.contains('open');
+  card.classList.toggle('open', !isOpen);
+}
+</script>
+</body>
+</html>
